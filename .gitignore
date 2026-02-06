@@ -1,0 +1,20 @@
+# Node
+node_modules/
+dist/
+
+# Env
+.env
+
+# Logs
+npm-debug.log*
+yarn-debug.log*
+yarn-error.log*
+
+# OS
+.DS_Store
+
+# Docker
+*.log
+
+# Prisma
+prisma/dev.db

@@ -1,0 +1,35 @@
+services:
+  db:
+    image: postgres:15
+    container_name: tekne-db
+    restart: always
+    environment:
+      POSTGRES_USER: postgres
+      POSTGRES_PASSWORD: mi_password_seguro
+      POSTGRES_DB: tekne_challenge
+    ports:
+      - "5432:5432"
+    volumes:
+      - postgres_data:/var/lib/postgresql/data
+
+  backend:
+    build: ./backend
+    container_name: tekne-backend
+    restart: unless-stopped
+    env_file:
+      - ./backend/.env
+    ports:
+      - "3001:3000"
+    depends_on:
+      - db
+
+  frontend:
+    build: ./frontend
+    container_name: tekne-frontend
+    ports:
+      - "5173:80"
+    depends_on:
+      - backend
+
+volumes:
+  postgres_data:

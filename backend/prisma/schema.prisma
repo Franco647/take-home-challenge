@@ -1,0 +1,33 @@
+generator client {
+  provider = "prisma-client-js"
+}
+
+datasource db {
+  provider = "postgresql"
+  url      = env("DATABASE_URL")
+}
+
+model Policy {
+  id                 String   @id @default(uuid())
+  policy_number      String   @unique
+  customer           String
+  policy_type        String   
+  start_date         DateTime
+  end_date           DateTime
+  premium_usd        Float
+  status             String   
+  insured_value_usd  Float
+  created_at         DateTime @default(now())
+}
+
+model Operation {
+  id             String   @id @default(uuid())
+  correlation_id String   
+  endpoint       String   
+  status         String   
+  rows_inserted  Int      @default(0)
+  rows_rejected  Int      @default(0)
+  duration_ms    Int?     
+  error_summary  String?  
+  created_at     DateTime @default(now())
+}
